@@ -4,5 +4,17 @@
 Keyword=ST7Project
 Number=1.3
 
+[Root.Source Files.delay.c.Config.0]
+ExternDep= delay.c D:\STVisualDevelop\COSMIC\CXSTM8_32K\Hstm8\mods0.h  config.h stm8s_conf.h stm8s.h stm8s_clk.h stm8s_gpio.h
+
 [Root.Source Files.main.c.Config.0]
-ExternDep= main.c D:\STVisualDevelop\COSMIC\CXSTM8_32K\Hstm8\mods0.h
+ExternDep= main.c D:\STVisualDevelop\COSMIC\CXSTM8_32K\Hstm8\mods0.h  stm8s.h stm8s_conf.h stm8s_clk.h stm8s_gpio.h delay.h config.h
+
+[Root.Source Files.stm8_interrupt_vector.c.Config.0]
+ExternDep= stm8_interrupt_vector.c  D:\STVisualDevelop\COSMIC\CXSTM8_32K\Hstm8\mods0.h
+
+[Root.Source Files.stm8s_clk.c.Config.0]
+ExternDep= stm8s_clk.c  D:\STVisualDevelop\COSMIC\CXSTM8_32K\Hstm8\mods0.h stm8s_clk.h stm8s.h  stm8s_conf.h stm8s_gpio.h
+
+[Root.Source Files.stm8s_gpio.c.Config.0]
+ExternDep= stm8s_gpio.c  D:\STVisualDevelop\COSMIC\CXSTM8_32K\Hstm8\mods0.h stm8s_gpio.h stm8s.h  stm8s_conf.h stm8s_clk.h
