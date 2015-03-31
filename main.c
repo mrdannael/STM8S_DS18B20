@@ -20,7 +20,6 @@
 #define RECALL_EE          (u8)0XB8
 #define READ_POWER_SUPPLY  (u8)0XB4
 
-u8 check = 0;
 u8 ROM_ID[8];
 u8 sukces;
 
@@ -92,6 +91,7 @@ u8 READ_ID(u8 *ROM_ID)
 	return 1;
 }
 
+
 void pause(void)
 {
 	unsigned int i;
@@ -99,21 +99,37 @@ void pause(void)
 }
 
 void setup(void)
-{
+{ CLK_DeInit();
+  CLK_SYSCLKConfig(CLK_PRESCALER_CPUDIV1);
+  CLK->ECKR |= 0x01;   /* HSEEN: High speed external crystal oscillator enable */
+  while(!(CLK->ECKR & 0x02));  /* HSERDY: High speed external crystal oscillator ready, waint until HSE ready */
+  CLK->SWCR |= 0x02;   /* set SWEN bit: Switch start/stop */
+  CLK->SWR = 0xB4;     /* HSE selected as master clock source */
+  while(CLK->SWCR & 0x01);   /* wait until switch busy: SWBSY = 1 */
+	/* Enable peripheral clock */
+  //CLK_PeripheralClockConfig(CLK_PERIPHERAL_SPI, ENABLE);
+  CLK_PeripheralClockConfig(CLK_PERIPHERAL_TIMER4, ENABLE);   /* 8bit: for implementing delays */
+	
+	
 	GPIO_Init(GPIOD, GPIO_PIN_0,GPIO_MODE_OUT_OD_LOW_SLOW);
-	GPIO_Init(GPIOB, GPIO_PIN_6,GPIO_MODE_IN_FL_NO_IT);
-	check = RESET_PULSE();
-	sukces = READ_ID(ROM_ID);
+	GPIO_Init(ONEWIREBUS_PORT, ONEWIREBUS_PIN, GPIO_MODE_OUT_OD_HIZ_FAST);
+	
+	/* TIMER4 configuration */
+  TIM4_DeInit();
+  TIM4_TimeBaseInit(TIM4_PRESCALER_128, 250);                 /* 2MS overflow interval - 500Hz*/
+  TIM4_ITConfig(TIM4_IT_UPDATE, ENABLE);
+  TIM4_ClearITPendingBit(TIM4_IT_UPDATE);
+  TIM4_Cmd(ENABLE);
+	
 }
 
 main()
 {
-	setup();
+
+setup();
 	while (1)
-	{
-		pause();
-		GPIO_WriteHigh(GPIOD,GPIO_PIN_0);
-		pause();
-		GPIO_WriteLow(GPIOD,GPIO_PIN_0);
+	{	
+		RESET_PULSE();
+		READ_ID(ROM_ID);
 	}
 }

@@ -54,6 +54,7 @@ Debug\delay.o
 Debug\main.o
 Debug\stm8s_clk.o
 Debug\stm8s_gpio.o
+Debug\stm8s_tim4.o
 #<END OBJECT_FILES>
 
 

@@ -309,6 +309,11 @@ Next=Root.Source Files.stm8s_gpio.c
 [Root.Source Files.stm8s_gpio.c]
 ElemType=File
 PathName=stm8s_gpio.c
+Next=Root.Source Files.stm8s_tim4.c
+
+[Root.Source Files.stm8s_tim4.c]
+ElemType=File
+PathName=stm8s_tim4.c
 
 [Root.Include Files]
 ElemType=Folder
@@ -411,3 +416,8 @@ Next=Root.Include Files.stm8s_gpio.h
 [Root.Include Files.stm8s_gpio.h]
 ElemType=File
 PathName=stm8s_gpio.h
+Next=Root.Include Files.stm8s_tim4.h
+
+[Root.Include Files.stm8s_tim4.h]
+ElemType=File
+PathName=stm8s_tim4.h

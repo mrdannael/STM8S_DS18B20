@@ -54,6 +54,7 @@ Release\delay.o
 Release\main.o
 Release\stm8s_clk.o
 Release\stm8s_gpio.o
+Release\stm8s_tim4.o
 #<END OBJECT_FILES>
 
 
